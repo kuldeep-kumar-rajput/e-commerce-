@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -19,83 +18,82 @@ const Cart = () => {
 
   // Add To Cart → Book animation
   const handleBook = (item) => {
-    setBookedItems((prev) => ({
-      ...prev,
-      [item.id]: true,
-    }));
+    setBookedItems((prev) => ({ ...prev, [item.id]: true }));
 
     setTimeout(() => {
-      setBookedItems((prev) => ({
-        ...prev,
-        [item.id]: false,
-      }));
+      setBookedItems((prev) => ({ ...prev, [item.id]: false }));
     }, 2000);
   };
 
   // Payment Function
-const handlePayment = () => {
-if (paymentMethod === "Cash on Delivery") {
-    alert("Order placed with Cash on Delivery");
-    return;
-}
-  if (!window.Razorpay) {
-    alert("Razorpay SDK not loaded");
-    return;
-  }
-
-  if (!paymentMethod) {
-    alert("Please select a payment method!");
-    return;
-  }
-
-  if (totalPrice <= 0) {
-    alert("Cart total is zero!");
-    return;
-  }
-
-  const options = {
-    key: "rzp_test_1DP5mmOlF5G5ag",
-    amount: Math.round(totalPrice * 100),
-    currency: "INR",
-    name: "Kuldeep Store",
-    description: "Order Payment",
-  method: {
-    upi: paymentMethod === "UPI",
-    card: paymentMethod === "Card",
-    netbanking: true,
-  },
-
-    handler: function (response) {
-      console.log(response);
-      alert("Payment Successful!");
-    },
-
-    modal: {
-      ondismiss: function () {
-        console.log("Payment popup closed");
-      }
-    },
-
-    prefill: {
-      name: "Kuldeep",
-      email: "test@gmail.com",
-      contact: "9999999999"
-    },
-
-    theme: {
-      color: "#2563eb"
+  const handlePayment = () => {
+    if (!paymentMethod) {
+      alert("Please select a payment method!");
+      return;
     }
+
+    // Cash on Delivery
+    if (paymentMethod === "Cash on Delivery") {
+      alert("Order placed successfully with Cash on Delivery!");
+      return;
+    }
+
+    // UPI test mode check
+    if (paymentMethod === "UPI") {
+      alert(
+        "UPI payment is not available in test mode. Please use Card or Cash on Delivery."
+      );
+      return;
+    }
+
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded");
+      return;
+    }
+
+    if (totalPrice <= 0) {
+      alert("Cart total is zero!");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_1DP5mmOlF5G5ag", // test key
+      amount: Math.round(totalPrice * 100),
+      currency: "INR",
+      name: "Kuldeep Store",
+      description: "Order Payment",
+      method: {
+        card: paymentMethod === "Card",
+        netbanking: true,
+      },
+      prefill: {
+        name: "Kuldeep",
+        email: "test@gmail.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#2563eb",
+      },
+      handler: function (response) {
+        console.log(response);
+        alert("Payment Successful!");
+      },
+      modal: {
+        ondismiss: function () {
+          console.log("Payment popup closed");
+        },
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+
+    rzp.on("payment.failed", function (response) {
+      console.log(response.error);
+      alert("Payment Failed: " + response.error.description);
+    });
+
+    rzp.open();
   };
-
-  const rzp = new window.Razorpay(options);
-
-  rzp.on("payment.failed", function (response) {
-    console.log(response.error);
-    alert("Payment Failed: " + response.error.description);
-  });
-
-  rzp.open();
-};
 
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6">
@@ -118,37 +116,25 @@ if (paymentMethod === "Cash on Delivery") {
             <div className="flex-1">
               <h3 className="font-bold text-lg">{item.title}</h3>
               <p className="text-sm text-gray-600">{item.description}</p>
-              <p className="text-blue-600 font-semibold">
-                Rs. {item.price}
-              </p>
+              <p className="text-blue-600 font-semibold">Rs. {item.price}</p>
             </div>
 
             <div className="flex flex-col items-center gap-2">
-
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() =>
-                    updateQuantity(item.id, item.quantity - 1)
-                  }
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
                   disabled={item.quantity === 1}
                   className="px-3 py-1 bg-red-500 text-white rounded"
                 >
                   -
                 </button>
-
-                <span className="font-semibold">
-                  {item.quantity}
-                </span>
-
+                <span className="font-semibold">{item.quantity}</span>
                 <button
-                  onClick={() =>
-                    updateQuantity(item.id, item.quantity + 1)
-                  }
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
                   className="px-3 py-1 bg-green-500 text-white rounded"
                 >
                   +
                 </button>
-
                 <button
                   onClick={() => removeFromCart(item.id)}
                   className="px-3 py-1 bg-gray-700 text-white rounded"
@@ -166,7 +152,7 @@ if (paymentMethod === "Cash on Delivery") {
 
               {bookedItems[item.id] && (
                 <span className="text-green-600 font-bold animate-bounce">
-                  Book
+                  Booked
                 </span>
               )}
             </div>
@@ -174,14 +160,10 @@ if (paymentMethod === "Cash on Delivery") {
         ))}
       </div>
 
-      <h3 className="text-2xl font-bold mt-6">
-        Grand Total: Rs. {totalPrice}
-      </h3>
+      <h3 className="text-2xl font-bold mt-6">Grand Total: Rs. {totalPrice}</h3>
 
       <div className="mt-6 border-t pt-4">
-        <h3 className="text-xl font-bold mb-2">
-          Select Payment Method
-        </h3>
+        <h3 className="text-xl font-bold mb-2">Select Payment Method</h3>
 
         <div className="flex flex-col gap-2">
           <label>
@@ -227,3 +209,6 @@ if (paymentMethod === "Cash on Delivery") {
 };
 
 export default Cart;
+
+
+                
