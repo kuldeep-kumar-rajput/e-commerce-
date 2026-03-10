@@ -33,44 +33,50 @@ const Cart = () => {
   };
 
   // Payment Function
-  const handlePayment = () => {
-    if (!paymentMethod) {
-      alert("Please select a payment method!");
-      return;
-    }
+const handlePayment = () => {
 
-    const options = {
-      key: "rzp_test_xxxxx", 
-      amount: totalPrice * 100,
-      currency: "INR",
-      name: "Kuldeep Store",
-      description: "Order Payment",
+  if (!window.Razorpay) {
+    alert("Razorpay SDK not loaded");
+    return;
+  }
 
-      handler: function () {
-        alert("Payment Successful!");
+  if (!paymentMethod) {
+    alert("Please select a payment method!");
+    return;
+  }
 
-        const booked = {};
-        cart.forEach((item) => {
-          booked[item.id] = true;
-        });
+  const options = {
+    key: "rzp_test_YOURKEY", // Razorpay dashboard se real test key dalo
+    amount: totalPrice * 100,
+    currency: "INR",
+    name: "xxx Store",
+    description: "Order Payment",
 
-        setBookedItems(booked);
-      },
+    handler: function (response) {
+      alert("Payment Successful!");
 
-      prefill: {
-        name: "Kuldeep Kumar",
-        email: "kuldeepk78079@gmail.com",
-        contact: "971947679",
-      },
+      const booked = {};
+      cart.forEach((item) => {
+        booked[item.id] = true;
+      });
 
-      theme: {
-        color: "#2563eb",
-      },
-    };
+      setBookedItems(booked);
+    },
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+    prefill: {
+      name: "xxx ",
+      email: "arjunA123@gmail.com",
+      contact: "97194xxxx9",
+    },
+
+    theme: {
+      color: "#2563eb",
+    },
   };
+
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+};
 
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6">
