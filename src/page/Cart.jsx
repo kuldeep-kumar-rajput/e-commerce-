@@ -63,9 +63,10 @@ const Cart = () => {
       name: "Kuldeep Store",
       description: "Order Payment",
       method: {
-        card: paymentMethod === "Card",
-        netbanking: true,
-      },
+        card: true,        
+        netbanking: true,  
+        upi: false           
+      }
       prefill: {
         name: "Kuldeep",
         email: "test@gmail.com",
