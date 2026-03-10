@@ -55,8 +55,7 @@ const Cart = () => {
       alert("Cart total is zero!");
       return;
     }
-
-    const options = {
+         const options = {
       key: "rzp_test_1DP5mmOlF5G5ag", // test key
       amount: Math.round(totalPrice * 100),
       currency: "INR",
@@ -75,6 +74,7 @@ const Cart = () => {
       theme: {
         color: "#2563eb",
       },
+
       handler: function (response) {
         console.log(response);
         alert("Payment Successful!");
