@@ -45,36 +45,47 @@ const handlePayment = () => {
     return;
   }
 
+  if (totalPrice <= 0) {
+    alert("Cart total is zero!");
+    return;
+  }
+
   const options = {
     key: "rzp_test_1DP5mmOlF5G5ag",
     amount: Math.round(totalPrice * 100),
     currency: "INR",
-    name: "xxx Store",
+    name: "Kuldeep Store",
     description: "Order Payment",
 
     handler: function (response) {
+      console.log(response);
       alert("Payment Successful!");
+    },
 
-      const booked = {};
-      cart.forEach((item) => {
-        booked[item.id] = true;
-      });
-
-      setBookedItems(booked);
+    modal: {
+      ondismiss: function () {
+        console.log("Payment popup closed");
+      }
     },
 
     prefill: {
-      name: "xxx",
-      email: "arjunA123@gmail.com",
-      contact: "9719476799",
+      name: "Kuldeep",
+      email: "test@gmail.com",
+      contact: "9999999999"
     },
 
     theme: {
-      color: "#2563eb",
-    },
+      color: "#2563eb"
+    }
   };
 
   const rzp = new window.Razorpay(options);
+
+  rzp.on("payment.failed", function (response) {
+    console.log(response.error);
+    alert("Payment Failed: " + response.error.description);
+  });
+
   rzp.open();
 };
 
