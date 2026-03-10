@@ -46,7 +46,7 @@ const handlePayment = () => {
   }
 
   const options = {
-    key: "rzp_test_1DP5mmOlF5G5ag"
+    key: "rzp_test_1DP5mmOlF5G5ag",
     amount: Math.round(totalPrice * 100),
     currency: "INR",
     name: "xxx Store",
