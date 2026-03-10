@@ -34,7 +34,10 @@ const Cart = () => {
 
   // Payment Function
 const handlePayment = () => {
-
+if (paymentMethod === "Cash on Delivery") {
+    alert("Order placed with Cash on Delivery");
+    return;
+}
   if (!window.Razorpay) {
     alert("Razorpay SDK not loaded");
     return;
@@ -57,10 +60,9 @@ const handlePayment = () => {
     name: "Kuldeep Store",
     description: "Order Payment",
   method: {
-    upi: true,
-    card: true,
+    upi: paymentMethod === "UPI",
+    card: paymentMethod === "Card",
     netbanking: true,
-    wallet: true
   },
 
     handler: function (response) {
