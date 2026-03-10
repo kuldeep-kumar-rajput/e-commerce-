@@ -46,7 +46,7 @@ const handlePayment = () => {
   }
 
   const options = {
-    key: "rzp_test_ABC123XYZ"
+    key: "rzp_test_ABC123XYZ",
     amount: Math.round(totalPrice * 100),
     currency: "INR",
     name: "xxx Store",
@@ -64,9 +64,9 @@ const handlePayment = () => {
     },
 
     prefill: {
-      name: "xxx ",
+      name: "xxx",
       email: "arjunA123@gmail.com",
-      contact: "97194xxxx9",
+      contact: "9719476799",
     },
 
     theme: {
