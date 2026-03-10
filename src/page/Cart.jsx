@@ -46,8 +46,8 @@ const handlePayment = () => {
   }
 
   const options = {
-    key: "rzp_test_YOURKEY", // Razorpay dashboard se real test key dalo
-    amount: totalPrice * 100,
+    key: "rzp_test_ABC123XYZ"
+    amount: Math.round(totalPrice * 100),
     currency: "INR",
     name: "xxx Store",
     description: "Order Payment",
