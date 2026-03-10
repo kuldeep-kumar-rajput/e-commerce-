@@ -1,8 +1,11 @@
+
 import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useOutletContext();
+
+  const [bookedItems, setBookedItems] = useState({});
   const [paymentMethod, setPaymentMethod] = useState("");
 
   if (!cart || cart.length === 0)
@@ -14,6 +17,21 @@ const Cart = () => {
 
   const totalPrice = cart.reduce((a, b) => a + b.price * b.quantity, 0);
 
+  // Add To Cart → Book animation
+  const handleBook = (item) => {
+    setBookedItems((prev) => ({
+      ...prev,
+      [item.id]: true,
+    }));
+
+    setTimeout(() => {
+      setBookedItems((prev) => ({
+        ...prev,
+        [item.id]: false,
+      }));
+    }, 2000);
+  };
+
   // Payment Function
   const handlePayment = () => {
     if (!paymentMethod) {
@@ -22,22 +40,27 @@ const Cart = () => {
     }
 
     const options = {
-      key: "rzp_test_xxxxxxxxx", // Razorpay key yaha dale
+      key: "rzp_test_xxxxx", 
       amount: totalPrice * 100,
       currency: "INR",
-      name: "xxx Store",
+      name: "Kuldeep Store",
       description: "Order Payment",
 
-      handler: function (response) {
-        alert(
-          "Payment Successful! Payment ID: " + response.razorpay_payment_id
-        );
+      handler: function () {
+        alert("Payment Successful!");
+
+        const booked = {};
+        cart.forEach((item) => {
+          booked[item.id] = true;
+        });
+
+        setBookedItems(booked);
       },
 
       prefill: {
-        name: "xxx",
-        email: "xxxx",
-        contact: "97xxxxx",
+        name: "Kuldeep Kumar",
+        email: "kuldeepk78079@gmail.com",
+        contact: "971947679",
       },
 
       theme: {
@@ -69,13 +92,14 @@ const Cart = () => {
 
             <div className="flex-1">
               <h3 className="font-bold text-lg">{item.title}</h3>
-              <p className="text-gray-600 text-sm">{item.description}</p>
+              <p className="text-sm text-gray-600">{item.description}</p>
               <p className="text-blue-600 font-semibold">
                 Rs. {item.price}
               </p>
             </div>
 
             <div className="flex flex-col items-center gap-2">
+
               <div className="flex items-center gap-2">
                 <button
                   onClick={() =>
@@ -99,14 +123,27 @@ const Cart = () => {
                 >
                   +
                 </button>
+
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="px-3 py-1 bg-gray-700 text-white rounded"
+                >
+                  Delete
+                </button>
               </div>
 
               <button
-                onClick={() => removeFromCart(item.id)}
-                className="px-3 py-1 bg-gray-700 text-white rounded"
+                onClick={() => handleBook(item)}
+                className="bg-yellow-400 text-black font-bold px-4 py-2 rounded hover:bg-yellow-500"
               >
-                Delete
+                Add To Cart
               </button>
+
+              {bookedItems[item.id] && (
+                <span className="text-green-600 font-bold animate-bounce">
+                  Book
+                </span>
+              )}
             </div>
           </div>
         ))}
@@ -117,7 +154,7 @@ const Cart = () => {
       </h3>
 
       <div className="mt-6 border-t pt-4">
-        <h3 className="text-xl font-bold mb-3">
+        <h3 className="text-xl font-bold mb-2">
           Select Payment Method
         </h3>
 
@@ -145,11 +182,11 @@ const Cart = () => {
           <label>
             <input
               type="radio"
-              value="Card / Net Banking"
-              checked={paymentMethod === "Card / Net Banking"}
+              value="Card"
+              checked={paymentMethod === "Card"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-            Card / Net Banking
+            Card
           </label>
         </div>
 
