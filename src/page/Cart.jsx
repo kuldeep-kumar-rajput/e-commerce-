@@ -56,6 +56,12 @@ const handlePayment = () => {
     currency: "INR",
     name: "Kuldeep Store",
     description: "Order Payment",
+  method: {
+    upi: true,
+    card: true,
+    netbanking: true,
+    wallet: true
+  },
 
     handler: function (response) {
       console.log(response);
