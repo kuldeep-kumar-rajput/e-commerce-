@@ -46,7 +46,7 @@ const ProductsList = () => {
             {item.description}
           </p>
           <div className="mb-6 flex flex-col ">
-            <p className="font-semibold text-blue-600">${item.price}</p>
+            <p className="font-semibold text-blue-600">{item.price}</p>
             <div>
               <p className="text-yellow-500">
                 rating: {"⭐".repeat(Math.round(item.rating))}
