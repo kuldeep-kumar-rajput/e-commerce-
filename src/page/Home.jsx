@@ -3,7 +3,7 @@ import Headphone from "../components/Headphone";
 
 const Home = () => {
   return (
-    <div>
+    <div classname="mt-17">
       <Headphone />
     </div>
   );
