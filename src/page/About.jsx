@@ -4,7 +4,7 @@ function About() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 lg:gap-12">
         <div className="w-full md:w-1/2">
           <img
-            src="/download.png"
+            src="download.png"
             alt="About MyShop"
             className="w-100 h-40 sm:h-80 md:h-full object-cover rounded-xl shadow-lg"
           />

@@ -1,30 +1,24 @@
-import { lazy, Suspense } from "react";
-import { StrictMode } from "react";
+import { lazy, Suspense, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import "./index.css";
 import App from "./App.jsx";
 import About from "./page/About.jsx";
 import Product from "./page/Product.jsx";
 import Cart from "./page/Cart.jsx";
 import Home from "./page/Home.jsx";
-import Products from "./page/Products.jsx";
+
 const Contact = lazy(() => import("./page/Contact.jsx"));
-const products = lazy(() => import("./page/Products.jsx"));
+const Products = lazy(() => import("./page/Products.jsx"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        index: true, // 👈 default route
-        element: <Home />,
-      },
-      {
-        path: "about",
-        element: <About />,
-      },
+      { index: true, element: <Home /> },
+      { path: "about", element: <About /> },
       {
         path: "contact",
         element: (
@@ -35,19 +29,13 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      {
-        path: "/product-details/:id",
-        element: <Product />,
-      },
-      {
-        path: "cart",
-        element: <Cart />,
-      },
+      { path: "product-details/:id", element: <Product /> },
+      { path: "cart", element: <Cart /> },
       {
         path: "products",
         element: (
           <Suspense
-            fallback={<p className="text-center mt-10">Loading products...</p>}
+            fallback={<p className="text-center mt-10">Loading Products...</p>}
           >
             <Products />
           </Suspense>

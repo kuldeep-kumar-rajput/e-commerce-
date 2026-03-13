@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 const ProductsList = () => {
-  const [data, setData] = useState([]); // state to store products
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // 🔹 Get addToCart from App's global cart context
   const { addToCart } = useOutletContext();
 
   useEffect(() => {
@@ -14,7 +12,7 @@ const ProductsList = () => {
       try {
         const response = await fetch("https://dummyjson.com/products");
         const result = await response.json();
-        setData(result.products); // store products in state
+        setData(result.products);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -46,7 +44,10 @@ const ProductsList = () => {
             {item.description}
           </p>
           <div className="mb-6 flex flex-col ">
-            <p className="font-semibold text-blue-600">${item.price}</p>
+            <p className="font-semibold text-blue-600">
+              {" "}
+              ₹{Math.floor(item.price * 83)}
+            </p>
             <div>
               <p className="text-yellow-500">
                 rating: {"⭐".repeat(Math.round(item.rating))}
@@ -54,9 +55,9 @@ const ProductsList = () => {
               <div className="items-center mt-4">
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); 
-                    addToCart({ ...item, quantity: 1 }); 
-                    navigate("/cart"); 
+                    e.stopPropagation();
+                    addToCart({ ...item, quantity: 1 });
+                    navigate("/cart");
                   }}
                   className="bg-[#ffc311] text-black font-bold px-4 py-2 rounded mt-2 cursor-pointer"
                 >

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 
 const Product = () => {
-  const { id } = useParams(); // /product-details/:id se id lelega
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1); // start with 1
+  const [quantity, setQuantity] = useState(1); 
   const [booked, setBooked] = useState(false);
   const navigate = useNavigate();
-
-  // 🔹 Get addToCart from App.jsx context
   const { addToCart } = useOutletContext();
 
   useEffect(() => {
@@ -30,10 +28,10 @@ const Product = () => {
   const total = quantity * product.price;
 
   const handleAddToCart = () => {
-    addToCart({ ...product, quantity }); // add product to global cart
+    addToCart({ ...product, quantity }); 
     setBooked(true);
-    navigate("/cart"); // navigate to cart page
-    setTimeout(() => setBooked(false), 2000); // temporary confirmation
+    navigate("/cart"); 
+    setTimeout(() => setBooked(false), 2000);
   };
 
   return (
@@ -85,7 +83,7 @@ const Product = () => {
 
       <div className="mt-4 flex justify-between w-full">
         <p className="font-semibold">Quantity: {quantity}</p>
-        <p className="font-semibold">Total: ${total}</p>
+        <p className="font-semibold">Total: {total}</p>
       </div>
 
       {booked && (

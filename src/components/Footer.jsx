@@ -64,19 +64,19 @@ const Footer = () => {
               <li className="hover:text-white cursor-pointer">Contact </li>
               <li className="hover:text-white cursor-pointer">Shipping Info</li>
               <li className="hover:text-white cursor-pointer">Return Policy</li>
-              <li className="hover:text-white cursor-pointer"> Privacy Policy </li>
+              <li className="hover:text-white cursor-pointer">
+                {" "}
+                Privacy Policy{" "}
+              </li>
             </ul>
           </div>
         </div>
-
-        {/* Bottom Section */}
         <div className="border-t border-gray-700 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Payment Icons */}
           <div className="flex flex-wrap justify-center md:justify-start gap-4">
-            <img src="/visa.png" alt="Visa" className="w-12" />
-            <img src="/mastercard.jpg" alt="Mastercard" className="w-12" />
-            <img src="/paypal.png" alt="Paypal" className="w-12" />
-            <img src="/AMAZONE.PNG" alt="Amazon" className="w-12" />
+            <img src="visa.png" alt="Visa" className="w-12" />
+            <img src="mastercard.jpg" alt="Mastercard" className="w-12" />
+            <img src="paypal.png" alt="Paypal" className="w-12" />
+            <img src="AMAZONE.PNG" alt="Amazon" className="w-12" />
           </div>
           <div className="text-center md:text-right">
             <p className="text-gray-400 mb-2">
