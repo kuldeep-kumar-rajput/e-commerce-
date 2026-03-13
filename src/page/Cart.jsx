@@ -12,7 +12,7 @@ const Cart = () => {
 
   if (!cart || cart.length === 0)
     return (
-      <p className="text-center mt-10 text-lg font-medium">
+      <p className="text-center mt-10 text-lg font-medium mt-10">
         Your cart is empty
       </p>
     );
