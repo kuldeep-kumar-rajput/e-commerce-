@@ -22,8 +22,7 @@ const Headphone = () => {
     fetchHeadphone();
   }, []);
 
-  if (loading)
-    return <p className="text-center mt-10">Loading products...</p>;
+  if (loading) return <p className="text-center mt-10">Loading products...</p>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 p-6">
@@ -42,16 +41,18 @@ const Headphone = () => {
             {item.description}
           </p>
           <div className="mb-4 flex flex-col">
-            <p className="font-semibold text-blue-600">Rs.{item.price}</p>
-            <p className="text-yellow-500">
-              rating: {"⭐".repeat(Math.round(item.rating))}
+            <p className="font-semibold text-blue-600">
+              ₹{Math.floor(item.price * 83)}
+            </p>
+            <p className="text-blue-600">
+              rating: {"⭐".repeat(Math.floor(item.rating))}
             </p>
           </div>
           <div className="mt-auto">
             <button
               onClick={() => {
-                addToCart({ ...item, quantity: 1 }); 
-                navigate("/cart"); 
+                addToCart({ ...item, quantity: 1 });
+                navigate("/cart");
               }}
               className="bg-[#ffc311] text-black font-bold px-4 py-2 rounded w-full hover:bg-yellow-400 transition"
             >
@@ -63,4 +64,5 @@ const Headphone = () => {
     </div>
   );
 };
-export default Headphone ;
+
+export default Headphone;
