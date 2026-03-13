@@ -58,7 +58,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-4 sm:p-6 mt-15">
+    <div className="max-w-5xl mx-auto p-4 sm:p-6 mt-10">
       <h2 className="text-2xl font-bold mb-6 text-center sm:text-left">
         Your Cart
       </h2>
