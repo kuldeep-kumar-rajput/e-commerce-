@@ -8,7 +8,6 @@ import About from "./page/About.jsx";
 import Product from "./page/Product.jsx";
 import Cart from "./page/Cart.jsx";
 import Home from "./page/Home.jsx";
-import Products from "./page/Products.jsx";
 const Contact = lazy(() => import("./page/Contact.jsx"));
 const products = lazy(() => import("./page/Products.jsx"));
 
@@ -18,7 +17,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true, // 👈 default route
+        index: true, 
         element: <Home />,
       },
       {
@@ -36,7 +35,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/product-details/:id",
+        path: "product-details/:id",
         element: <Product />,
       },
       {
